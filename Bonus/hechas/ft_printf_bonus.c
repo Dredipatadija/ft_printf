@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf_bonus.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/20 18:57:37 by arenilla          #+#    #+#             */
+/*   Updated: 2024/04/20 18:59:09 by arenilla         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 #include "libft.h"
 
@@ -13,9 +25,9 @@ static void	ft_initflags_bonus(t_format *fmt)
 
 int	ft_printf_bonus(const char *format, ...)
 {
-	va_list	args;
+	va_list		args;
 	t_format	*fmt;
-	int		total;
+	int			total;
 
 	i = 0;
 	va_start(args, format);
@@ -23,19 +35,19 @@ int	ft_printf_bonus(const char *format, ...)
 	if (!fmt)
 		return (-1);
 	ft_init_flags(fmt);
-	fmt->bytesprinted = 0;
+	fmt->bprinted = 0;
 	while (*format != '\0')
 	{
 		if (*format == '%' && *(++format) != '\0')
-			fmt->bytesprinted = (fmt->bytesprinted) + ft_check_bonus(format, fmt, args);
+			fmt->bprinted = (fmt->bprinted) + ft_check_bonus(format, fmt, args);
 		else if (*format != '%')
 		{
-			fmt->bytesprinted = fmt->bytesprinted + ft_putchar(format[i]);
+			fmt->bprinted = fmt->bprinted + ft_putchar(format[i]);
 			format++;
 		}
 	}
 	va_end(args);
-	total = fmt->bytesprinted;
+	total = fmt->bprinted;
 	free(fmt);
 	return (total);
 }
