@@ -1,39 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_putunbr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/26 13:59:20 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/20 21:25:05 by arenilla         ###   ########.fr       */
+/*   Created: 2024/04/20 21:49:35 by arenilla          #+#    #+#             */
+/*   Updated: 2024/04/20 22:33:39 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_printf.h"
 #include "../include/libft.h"
 
-int	ft_putstr(char *str)
+int	ft_putunbr(unsigned long n)
 {
-	int	i;
+	static int		printed;
+	char	num;
 
-	i = 0;
-	if (!str)
-		return (write (1, "(null)", 6));
-	while (str[i] != '\0')
-	{
-		if (write (1, &str[i], 1) == -1)
-			return (-1);
-		i++;
-	}
-	return (i);
+	printed = 0;
+	if (n > 9)
+		ft_putunbr(n / 10);
+	num = (n % 10) + 48;
+	printed = printed + write(1, &num, 1);
+	return (printed);
 }
-
-/*int	main(void)
-{
-	char i;
-
-	i = ft_putstr("hola") + 48;
-	write(1, &i, 2);
-	return 0;
-}*/

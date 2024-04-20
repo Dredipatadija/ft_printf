@@ -1,39 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_errorstr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/26 13:59:20 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/20 21:25:05 by arenilla         ###   ########.fr       */
+/*   Created: 2024/04/20 19:12:52 by arenilla          #+#    #+#             */
+/*   Updated: 2024/04/20 19:13:55 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ft_printf.h"
-#include "../include/libft.h"
-
-int	ft_putstr(char *str)
+int	ft_errorstr(char *str)
 {
-	int	i;
-
-	i = 0;
-	if (!str)
-		return (write (1, "(null)", 6));
-	while (str[i] != '\0')
-	{
-		if (write (1, &str[i], 1) == -1)
-			return (-1);
-		i++;
-	}
-	return (i);
+	free(str);
+	return (-1);
 }
-
-/*int	main(void)
-{
-	char i;
-
-	i = ft_putstr("hola") + 48;
-	write(1, &i, 2);
-	return 0;
-}*/

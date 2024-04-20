@@ -6,11 +6,12 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:40:59 by arenilla          #+#    #+#             */
-/*   Updated: 2024/03/28 18:42:42 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/04/20 22:48:39 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../include/ft_printf.h"
+#include "../include/libft.h"
 
 int	ft_condhex(unsigned long n, char ch, int i)
 {
@@ -42,6 +43,7 @@ int	ft_puthex(unsigned long n, char ch)
 {
 	static int	i;
 
+	i = 0;
 	if (n == 0)
 		i = i + write(1, "0", 1);
 	else

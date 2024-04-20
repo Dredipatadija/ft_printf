@@ -6,7 +6,7 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:40:59 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/15 14:53:32 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/04/20 21:09:31 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,23 +80,19 @@ static char	*ft_itohex(int len, unsigned long n, char ch, t_format *fmt)
 char	*ft_print_hex_bonus(unsigned long n, char ch, t_format *fmt)
 {
 	char	*str;
-	int		len;
-	char	*spacestr;
-	char	*finalstr;
+	int		printedflag;
+	int		printedstr;
 
-	len = ft_hexlen(n);
-	str = ft_itohex(len, n, ch, fmt);
-	spacestr = NULL;
-	finalstr = NULL;
+	str = ft_itohex(ft_hexlen(n), n, ch, fmt);
 	if (fmt->width <= ft_strlen(str))
-		return (str);
+		printedstr = ft_putstr(str);
 	else if (fmt->width > ft_strlen(str))
 	{
-		spacestr = ft_padwidth_bonus(' ', (fmt->width - ft_strlen(str)));
-		finalstr = ft_strjoin((char const *)spacestr, (char const *)str);
+		printedflag = ft_padwidth_bonus(' ', (fmt->width - ft_strlen(str)));
+		printedstr = ft_putstr(str);
+		if (printedflag == -1 || printedstr == -1)
+			return (ft_errorstr(str));
 	}
-	if (spacestr != NULL)
-		free(spacestr);
 	free(str);
-	return (finalstr);
+	return (printedstr + printedflag);
 }

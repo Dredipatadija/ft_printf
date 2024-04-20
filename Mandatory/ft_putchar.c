@@ -6,11 +6,12 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:42:41 by arenilla          #+#    #+#             */
-/*   Updated: 2024/03/28 16:27:33 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/04/20 20:14:34 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../include/ft_printf.h"
+#include "../include/libft.h"
 
 int	ft_putchar(char c)
 {
