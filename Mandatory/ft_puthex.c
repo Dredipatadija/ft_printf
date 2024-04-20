@@ -6,7 +6,7 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:40:59 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/20 22:48:39 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/04/20 22:53:13 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	ft_condhex(unsigned long n, char ch, int i)
 
 	if (n > 15)
 	{
-		ft_puthex((n / 16), ch);
-		ft_puthex((n % 16), ch);
+		i = i + ft_puthex((n / 16), ch);
+		i = i + ft_puthex((n % 16), ch);
 	}
 	if (n < 10)
 	{
@@ -41,7 +41,7 @@ int	ft_condhex(unsigned long n, char ch, int i)
 
 int	ft_puthex(unsigned long n, char ch)
 {
-	static int	i;
+	int	i;
 
 	i = 0;
 	if (n == 0)
