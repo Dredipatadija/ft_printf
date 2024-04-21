@@ -6,26 +6,48 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:40:59 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/20 22:53:13 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/04/21 19:14:01 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_printf.h"
 #include "../include/libft.h"
 
-int	ft_condhex(unsigned long n, char ch, int i)
+static int	ft_cond15and10(unsigned long n, char ch, int i, int j)
 {
 	char	number;
 
 	if (n > 15)
 	{
-		i = i + ft_puthex((n / 16), ch);
-		i = i + ft_puthex((n % 16), ch);
+		j = ft_puthex((n / 16), ch);
+		if (j == -1)
+			return (-1);
+		i = i + j;
+		j = ft_puthex((n % 16), ch);
+		if (j == -1)
+			return (-1);
+		i = i + j;
 	}
 	if (n < 10)
 	{
 		number = n + 48;
-		i = i + write(1, &number, 1);
+		j = write(1, &number, 1);
+		if (j == -1)
+			return (-1);
+		i = i + j;
+	}
+	return (i);
+}
+
+static int	ft_condhex(unsigned long n, char ch, int i, int j)
+{
+	char	number;
+
+	if (n > 15 || n < 10)
+	{
+		i = ft_cond15and10(n, ch, i, j);
+		if (i == -1)
+			return (-1);
 	}
 	if (n > 9 && n < 16)
 	{
@@ -34,7 +56,10 @@ int	ft_condhex(unsigned long n, char ch, int i)
 			number = n + 97;
 		if (ch == 'X')
 			number = n + 65;
-		i = i + write(1, &number, 1);
+		j = write(1, &number, 1);
+		if (j == -1)
+			return (-1);
+		i = i + j;
 	}
 	return (i);
 }
@@ -42,12 +67,24 @@ int	ft_condhex(unsigned long n, char ch, int i)
 int	ft_puthex(unsigned long n, char ch)
 {
 	int	i;
+	int	j;
 
 	i = 0;
+	j = 0;
 	if (n == 0)
-		i = i + write(1, "0", 1);
+	{
+		j = write(1, "0", 1);
+		if (j == -1)
+			return (-1);
+		i = i + j;
+	}
 	else
-		i = ft_condhex(n, ch, i);
+	{
+		j = ft_condhex(n, ch, i, j);
+		if (j == -1)
+			return (-1);
+		i = j;
+	}
 	return (i);
 }
 

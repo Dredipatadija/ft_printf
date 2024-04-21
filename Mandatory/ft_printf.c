@@ -6,7 +6,7 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:46:31 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/20 22:24:36 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/04/21 19:33:49 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,25 +23,17 @@ int	ft_printf(const char *format, ...)
 
 	va_start(args, format);
 	i = 0;
-	count = 0;
 	totalprint = 0;
 	if (format)
 	{
 		while (format[i] != '\0')
 		{
-			if (format[i] == '%' && format[i + 1] != '\0')
-			{
-				i++;
+			if (format[i] == '%' && format[++i] != '\0')
 				count = ft_check(format[i], args);
-				if (count == -1)
-					return (-1);
-			}
 			else if (format[i] != '%')
-			{
 				count = ft_putchar(format[i]);
-				if (count == -1)
-					return (-1);
-			}
+			if (count == -1)
+				return (-1);
 			i++;
 			totalprint = totalprint + count;
 		}
@@ -55,8 +47,8 @@ int	ft_printf(const char *format, ...)
 	int	original;
 	int	propia;
 
-	original = printf("%d ", 10);
-	propia = ft_printf("%d ", 10);
+	original = printf("%p", "");
+	propia = ft_printf("%p", "");
 	printf("%i\n", original);
 	printf("%i", propia);
 	return (0);

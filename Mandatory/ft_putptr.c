@@ -6,7 +6,7 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 19:17:21 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/20 21:28:32 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/04/21 19:15:30 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ int	ft_putptr(void *ptr)
 
 	p = (unsigned long)ptr;
 	i = write(1, "0x", 2);
+	if (i == -1)
+		return (-1);
 	j = ft_puthex(p, 'x');
-	if (i == -1 || j == -1)
+	if (j == -1)
 		return (-1);
 	return (i + j);
 }
