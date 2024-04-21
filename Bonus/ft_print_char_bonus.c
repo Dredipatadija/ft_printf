@@ -6,11 +6,12 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:42:41 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/15 14:50:59 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/04/21 19:59:34 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../include/ft_printf_bonus.h"
+#include "../include/libft.h"
 
 static int	ft_leftaligned_char(t_format *fmt, char c, int len, char *str)
 {

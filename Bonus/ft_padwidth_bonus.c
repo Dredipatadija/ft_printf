@@ -6,11 +6,12 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 19:23:29 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/20 21:04:55 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/04/21 19:59:02 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../include/ft_printf_bonus.h"
+#include "../include/libft.h"
 
 int	ft_padwidth_bonus(char p, int len)
 {

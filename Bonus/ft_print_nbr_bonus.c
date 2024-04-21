@@ -6,11 +6,12 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 15:25:56 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/20 19:02:10 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/04/21 20:00:09 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../include/ft_printf_bonus.h"
+#include "../include/libft.h"
 
 static char	*ft_positnum(char *str, t_format *fmt)
 {

@@ -6,11 +6,12 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:59:20 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/15 14:51:11 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/04/21 20:00:35 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../include/ft_printf_bonus.h"
+#include "../include/libft.h"
 
 static int	ft_leftalig_str(t_format *fmt, char *str, char *space)
 {

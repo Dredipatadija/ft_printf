@@ -6,11 +6,13 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:00:33 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/20 21:06:05 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/04/21 20:11:28 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../include/ft_printf_bonus.h"
+#include "../include/libft.h"
+#include "../include/ft_printf.h"
 
 static size_t	ft_numlen(unsigned long n)
 {
@@ -70,6 +72,7 @@ int	ft_print_unbr_bonus(unsigned int n, t_format *fmt)
 	int		printedstr;
 
 	printedflag = 0;
+	printedstr = 0;
 	str = ft_uitoa(ft_numlen(n), n);
 	if (fmt->width <= ft_strlen(str))
 		printedstr = ft_putstr(str);

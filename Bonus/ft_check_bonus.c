@@ -6,11 +6,12 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 12:55:57 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/15 14:50:48 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/04/21 20:03:53 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../include/ft_printf_bonus.h"
+#include "../include/libft.h"
 
 static void	ft_bonusflags(const char *format, t_format *fmt)
 {
