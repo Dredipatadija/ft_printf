@@ -6,12 +6,13 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:59:20 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/21 20:00:35 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/04/23 19:31:13 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_printf_bonus.h"
 #include "../include/libft.h"
+#include "../include/ft_printf.h"
 
 static int	ft_leftalig_str(t_format *fmt, char *str, char *space)
 {
@@ -43,6 +44,7 @@ int	ft_print_str_bonus(char *str, t_format *fmt)
 	int		printed;
 
 	i = 0;
+	printed = 0;
 	spacestr = NULL;
 	if (str == NULL)
 		return (ft_putstr("(null)"));

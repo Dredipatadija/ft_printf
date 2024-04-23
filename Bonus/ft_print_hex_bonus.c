@@ -6,12 +6,13 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:40:59 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/21 19:59:53 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/04/23 19:36:27 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_printf_bonus.h"
 #include "../include/libft.h"
+#include "../include/ft_printf.h"
 
 static size_t	ft_hexlen(unsigned long n)
 {
@@ -78,12 +79,14 @@ static char	*ft_itohex(int len, unsigned long n, char ch, t_format *fmt)
 	return (str);
 }
 
-char	*ft_print_hex_bonus(unsigned long n, char ch, t_format *fmt)
+int	ft_print_hex_bonus(unsigned long n, char ch, t_format *fmt)
 {
 	char	*str;
 	int		printedflag;
 	int		printedstr;
 
+	printedflag = 0;
+	printedstr = 0;
 	str = ft_itohex(ft_hexlen(n), n, ch, fmt);
 	if (fmt->width <= ft_strlen(str))
 		printedstr = ft_putstr(str);

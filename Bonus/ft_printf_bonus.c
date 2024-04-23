@@ -6,13 +6,14 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:57:37 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/21 20:09:51 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/04/23 20:48:50 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_printf_bonus.h"
 #include "../include/libft.h"
 #include "../include/ft_printf.h"
+//#include <stdio.h>
 
 static void	ft_initflags_bonus(t_format *fmt)
 {
@@ -29,28 +30,42 @@ int	ft_printf_bonus(const char *format, ...)
 	va_list		args;
 	t_format	*fmt;
 	int			total;
+	int			count;
 
 	va_start(args, format);
-	fmt = ft_calloc(1, sizeof(t_format *));
+	total = 0;
+	fmt = ft_calloc(1, sizeof(t_format));
 	if (!fmt)
 		return (-1);
 	ft_initflags_bonus(fmt);
-	fmt->bprinted = 0;
-	while (*format != '\0')
+	if (format)
 	{
-		if (*format == '%' && *(++format) != '\0')
+		while (*format != '\0')
 		{
-			fmt->bprinted = (fmt->bprinted) + ft_check_bonus(format, fmt, args);
-			ft_initflags_bonus(fmt);
-		}
-		else if (*format != '%')
-		{
-			fmt->bprinted = fmt->bprinted + ft_putchar(*format);
+			if (*format == '%' && *(++format) != '\0')
+			{
+				count = ft_check_bonus(format, fmt, args);
+				ft_initflags_bonus(fmt);
+			}
+			else if (*format != '%')
+				count = ft_putchar(*format);
+			if (count == -1)
+				return (-1);
 			format++;
+			total = total + count;
 		}
 	}
 	va_end(args);
-	total = fmt->bprinted;
 	free(fmt);
 	return (total);
 }
+
+/*int	main(void)
+{
+	int c;
+	
+	c = '0';
+	printf("%-1c\n", c);
+	ft_printf("%-1c\n", c);
+	return (0);
+}*/

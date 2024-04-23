@@ -6,17 +6,19 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 15:25:56 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/21 20:00:09 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/04/23 19:37:42 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_printf_bonus.h"
 #include "../include/libft.h"
+#include "../include/ft_printf.h"
 
 static char	*ft_positnum(char *str, t_format *fmt)
 {
 	char	*positstr;
 
+	positstr = NULL;
 	if (fmt->plus != 0)
 		positstr = ft_strjoin("+", (char const *)str);
 	else if (fmt->space != 0)
@@ -45,7 +47,7 @@ static int	ft_suprawidth(t_format *fmt, char *str)
 			printedflag = ft_padwidth_bonus(' ', (fmt->width - ft_strlen(str)));
 		if (printedflag == -1)
 			return (-1);
-		printedstr = ft_pustr(str);
+		printedstr = ft_putstr(str);
 		if (printedstr == -1)
 			return (-1);
 	}
