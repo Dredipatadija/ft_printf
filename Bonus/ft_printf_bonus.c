@@ -21,7 +21,7 @@ static void	ft_initflags_bonus(t_format *fmt)
 }
 
 int	ft_printf_bonus(const char *format, ...)
-{i
+{
 	va_list		args;
 	t_format	*fmt;
 	int			total;
