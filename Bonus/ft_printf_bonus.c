@@ -17,7 +17,7 @@
 
 static void	ft_initflags_bonus(t_format *fmt)
 {
-	ft_memset(fmt, 0, sizeof(t_flags));
+	ft_memset(fmt, 0, sizeof(t_format));
 }
 
 int	ft_printf_bonus(const char *format, ...)
