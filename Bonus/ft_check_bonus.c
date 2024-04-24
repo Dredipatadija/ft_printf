@@ -13,41 +13,43 @@
 #include "../include/ft_printf_bonus.h"
 #include "../include/libft.h"
 
-static void	ft_bonusflags(const char *format, t_format *fmt)
+static void	ft_bonusflags(char f, t_format *fmt)
 {
-	char	*flags;
-
-	flags = "0-#+ ";
-	while (ft_strchr(flags, *format) && *format != '\0')
+	if (f == '#')
+		fmt->hash = 1;
+	else if (f == ' ')
+		fmt->space = 1;
+	else if (f == '0')
+		fmt->zerofilled = 1;
+	else if (f == '-')
 	{
-		if (*format == '0')
-			fmt->zerofilled = 1;
-		else if (*format == '-')
-			fmt->leftaligned = 1;
-		else if (*format == '#')
-			fmt->hash = 1;
-		else if (*format == '+')
-			fmt->plus = 1;
-		else if (*format == ' ')
-			fmt->space = 1;
-		else
-			return ;
-		format++;
+		if (fmt->zerofilled != 0)
+			fmt->zerofilled = 0;
+		fmt->leftaligned = 1;
 	}
+	else if (f == '+')
+	{
+		if (fmt->space != 0)
+			fmt->space = 0;
+		fmt->plus = 1;
+	else
+		return ;
 }
 
-static void	ft_width(const char *format, t_format *fmt, va_list args)
+static const char	*ft_width(const char *format, t_format *fmt, va_list args)
 {
 	if (*format == '*')
 	{
 		fmt->width = va_arg(args, int);
 		format++;
-		return ;
+		return (format);
 	}
 	else
 	{
 		fmt->width = ft_atoi(format);
-		format++;
+		while (ft_strchr("0123456789", *format))
+			++format;
+		return (format);
 	}
 }
 
@@ -69,7 +71,8 @@ static int	ft_spec_str(char ch, va_list args, t_format *fmt)
 		return (ft_print_hex_bonus(va_arg(args, unsigned int), 'X', fmt));
 	else if (ch == 'p')
 		return (ft_print_ptr_bonus(va_arg(args, void *), fmt));
-	return (-1);
+	else
+		return (-1);
 }
 
 int	ft_check_bonus(const char *format, t_format *fmt, va_list args)
@@ -77,16 +80,15 @@ int	ft_check_bonus(const char *format, t_format *fmt, va_list args)
 	int	printed;
 
 	printed = 0;
-	while (*format != '\0')
+	while (ft_strchr("0-#+ ", *format))
 	{
-		if (ft_strchr("0-#+ ", *format))
-			ft_bonusflags(format, fmt);
-		else if (ft_strchr("*123456789", *format))
-			ft_width(format, fmt, args);
-		else if (ft_strchr("cspdiuxX", *format))
-			printed = ft_spec_str(*format, args, fmt);
-		else
-			return (-1);
+		ft_bonusflags(*format, fmt);
+		++format;
 	}
+	ft_width(format, fmt, args);
+	if (ft_strchr("cspdiuxX", *format))
+		printed = ft_spec_str(*format, args, fmt);
+	else
+		return (-1);
 	return (printed);
 }
