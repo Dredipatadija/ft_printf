@@ -17,27 +17,22 @@
 
 static void	ft_initflags_bonus(t_format *fmt)
 {
-	fmt->width = 0;
-	fmt->zerofilled = 0;
-	fmt->leftaligned = 0;
-	fmt->hash = 0;
-	fmt->plus = 0;
-	fmt->space = 0;
+	ft_memset(fmt, 0, sizeof(t_flags));
 }
 
 int	ft_printf_bonus(const char *format, ...)
-{
+{i
 	va_list		args;
 	t_format	*fmt;
 	int			total;
 	int			count;
 
-	va_start(args, format);
 	total = 0;
-	fmt = ft_calloc(1, sizeof(t_format));
+	fmt = (t_format *)ft_calloc(1, sizeof(t_format));
 	if (!fmt)
 		return (-1);
 	ft_initflags_bonus(fmt);
+	va_start(args, format);
 	if (format)
 	{
 		while (*format != '\0')
@@ -51,7 +46,7 @@ int	ft_printf_bonus(const char *format, ...)
 				count = ft_putchar(*format);
 			if (count == -1)
 				return (-1);
-			format++;
+			++format;
 			total = total + count;
 		}
 	}
