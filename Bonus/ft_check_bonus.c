@@ -32,6 +32,7 @@ static void	ft_bonusflags(char f, t_format *fmt)
 		if (fmt->space != 0)
 			fmt->space = 0;
 		fmt->plus = 1;
+	}
 	else
 		return ;
 }
