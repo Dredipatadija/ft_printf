@@ -86,7 +86,7 @@ int	ft_check_bonus(const char *format, t_format *fmt, va_list args)
 		ft_bonusflags(*format, fmt);
 		++format;
 	}
-	ft_width(format, fmt, args);
+	fomat = ft_width(format, fmt, args);
 	if (ft_strchr("cspdiuxX", *format))
 		printed = ft_spec_str(*format, args, fmt);
 	else

@@ -45,7 +45,10 @@ int	ft_printf_bonus(const char *format, ...)
 			else if (*format != '%')
 				count = ft_putchar(*format);
 			if (count == -1)
+			{
+				free(fmt);
 				return (-1);
+			}
 			++format;
 			total = total + count;
 		}
