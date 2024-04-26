@@ -6,7 +6,7 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:57:37 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/24 21:23:38 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/04/26 08:37:51 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,20 @@ int	ft_printf_bonus(const char *format, ...)
 			{
 				count = ft_check_bonus(format, fmt, args);
 				ft_initflags_bonus(fmt);
+				while (ft_strchr("+-# 0123456789*csdiuxXp%", *format))
+					++format;
 			}
 			else if (*format != '%')
+			{
 				count = ft_putchar(*format);
+				++format;
+			}
 			if (count == -1)
 			{
 				free(fmt);
+				va_end(args);
 				return (-1);
 			}
-			++format;
 			total = total + count;
 		}
 	}
@@ -112,6 +117,12 @@ int main(void)
     original = printf("Original printf: %#x\n", 255);
     bonus = ft_printf_bonus("Bonus printf: %#x\n", 255);
     printf("Original returned: %d, Bonus returned: %d\n\n", original, bonus);
+
+    // Test 6: Testing the first test from paco
+    original = printf("%-1c\n", '0');
+    bonus = ft_printf_bonus("%-1c\n", '0');
+    printf("Original returned: %d, Bonus returned: %d\n\n", original, bonus);
+
 
     return 0;
 }

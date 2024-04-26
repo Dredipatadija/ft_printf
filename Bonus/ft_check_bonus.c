@@ -6,7 +6,7 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 12:55:57 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/23 20:48:37 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/04/26 08:07:21 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,12 @@ int	ft_check_bonus(const char *format, t_format *fmt, va_list args)
 		ft_bonusflags(*format, fmt);
 		++format;
 	}
-	fomat = ft_width(format, fmt, args);
+	format = ft_width(format, fmt, args);
 	if (ft_strchr("cspdiuxX", *format))
+	{
 		printed = ft_spec_str(*format, args, fmt);
+		format++;
+	}
 	else
 		return (-1);
 	return (printed);

@@ -6,7 +6,7 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:40:59 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/23 19:36:27 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/04/26 08:56:15 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static char	*ft_fillhex(unsigned long n, char ch, size_t len, char *str)
 static char	*ft_itohex(int len, unsigned long n, char ch, t_format *fmt)
 {
 	char	*str;
+	char	*strfin;
 
 	str = malloc(sizeof(char) * len + 1);
 	if (!str)
@@ -66,17 +67,19 @@ static char	*ft_itohex(int len, unsigned long n, char ch, t_format *fmt)
 		str[len] = '0';
 	else
 	{
-		if (fmt->hash == 0 || ch == 'p')
-			str = ft_fillhex(n, ch, len, str);
+		str = ft_fillhex(n, ch, len, str);
+		if (fmt->hash == 0)
+			return (str);
 		else if (fmt->hash != 0)
 		{
 			if (ch == 'x')
-				str = ft_strjoin("0x", str);
+				strfin = ft_strjoin("0x", str);
 			else if (ch == 'X')
-				str = ft_strjoin("0X", str);
+				strfin = ft_strjoin("0X", str);
 		}
 	}
-	return (str);
+	free(str);
+	return (strfin);
 }
 
 int	ft_print_hex_bonus(unsigned long n, char ch, t_format *fmt)
