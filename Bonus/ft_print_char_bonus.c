@@ -6,7 +6,7 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:42:41 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/23 20:47:27 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/04/27 13:31:47 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	ft_leftaligned_char(t_format *fmt, char c)
 	int	printed;
 	int	i;
 	int	j;
-	int space;
+	int	space;
 
 	j = 0;
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:40:59 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/26 08:56:15 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/04/27 15:37:15 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static char	*ft_itohex(int len, unsigned long n, char ch, t_format *fmt)
 	char	*str;
 	char	*strfin;
 
+	strfin = NULL;
 	str = malloc(sizeof(char) * len + 1);
 	if (!str)
 		return (NULL);
@@ -87,19 +88,35 @@ int	ft_print_hex_bonus(unsigned long n, char ch, t_format *fmt)
 	char	*str;
 	int		printedflag;
 	int		printedstr;
+	char	*strprecis;
+	char	*finalstr;
 
 	printedflag = 0;
 	printedstr = 0;
+	strprecis = NULL;
+	finalstr = NULL;
 	str = ft_itohex(ft_hexlen(n), n, ch, fmt);
-	if (fmt->width <= ft_strlen(str))
-		printedstr = ft_putstr(str);
-	else if (fmt->width > ft_strlen(str))
+	if (fmt->point == 1 && fmt->precision > ft_strlen(str))
 	{
-		printedflag = ft_padwidth_bonus(' ', (fmt->width - ft_strlen(str)));
-		printedstr = ft_putstr(str);
-		if (printedflag == -1 || printedstr == -1)
-			return (ft_errorstr(str));
+		strprecis = ft_padprecis_bonus('0', (fmt->precision - ft_strlen(str)));
+		finalstr = ft_strjoin(strprecis, str);
+		free(strprecis);
+		free(str);
 	}
-	free(str);
+	else
+	{
+		finalstr = ft_strdup(str);
+		free(str);
+	}
+	if (fmt->width <= ft_strlen(finalstr))
+		printedstr = ft_putstr(finalstr);
+	else if (fmt->width > ft_strlen(finalstr))
+	{
+		printedflag = ft_padwidth_bonus(' ', (fmt->width - ft_strlen(finalstr)));
+		printedstr = ft_putstr(finalstr);
+		if (printedflag == -1 || printedstr == -1)
+			return (ft_errorstr(finalstr));
+	}
+	free(finalstr);
 	return (printedstr + printedflag);
 }

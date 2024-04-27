@@ -6,7 +6,7 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:00:33 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/21 20:11:28 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/04/27 15:29:49 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,21 @@ static char	*ft_fillstr(unsigned int n, size_t len, char *str)
 	return (str);
 }
 
-static char	*ft_uitoa(size_t len, unsigned int n)
+static char	*ft_uitoa(size_t len, unsigned int n, t_format *fmt)
 {
 	char	*str;
+	size_t	finallen;
+	char	*finalstr;
+	char	*strprecis;
 
-	str = malloc(sizeof(char) * len + 1);
+	finalstr = NULL;
+	strprecis = NULL;
+	finallen = 0;
+	if (fmt->point == 1 && fmt->precision > len)
+		finallen = fmt->precision;
+	else
+		finallen = len;
+	str = malloc(sizeof(char) * finallen + 1);
 	if (!str)
 		return (NULL);
 	str[len--] = 0;
@@ -62,7 +72,14 @@ static char	*ft_uitoa(size_t len, unsigned int n)
 		return (str);
 	}
 	str = ft_fillstr(n, len, str);
-	return (str);
+	if (finallen <= len)
+		return (str);
+	else
+	{
+		strprecis = ft_padprecis_bonus('0', finallen - len);
+		finalstr = ft_strjoin(strprecis, str);
+	}
+	return (finalstr);
 }
 
 int	ft_print_unbr_bonus(unsigned int n, t_format *fmt)
@@ -73,7 +90,7 @@ int	ft_print_unbr_bonus(unsigned int n, t_format *fmt)
 
 	printedflag = 0;
 	printedstr = 0;
-	str = ft_uitoa(ft_numlen(n), n);
+	str = ft_uitoa(ft_numlen(n), n, fmt);
 	if (fmt->width <= ft_strlen(str))
 		printedstr = ft_putstr(str);
 	else if (fmt->width > ft_strlen(str))

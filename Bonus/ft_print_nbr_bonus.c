@@ -6,7 +6,7 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 15:25:56 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/26 08:27:11 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/04/27 15:07:37 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,32 @@
 
 static char	*ft_positnum(char *str, t_format *fmt)
 {
-	if (fmt->plus != 0)
-		return (ft_strjoin("+", str));
-	else
-		return (ft_strjoin(" ", str));
+	char	*strprecis;
+	char	*padprecis;
+	char	*finalstr;
+
+	finalstr = NULL;
+	padprecis = NULL;
+	strprecis = NULL;
+	if (fmt->point == 1 && fmt->precision > ft_strlen(str))
+	{
+		padprecis = ft_padprecis_bonus('0', (fmt->precision - ft_strlen(str)));
+		strprecis = ft_strjoin(padprecis, str);
+		free(padprecis);
+		if (fmt->plus != 0)
+			finalstr = ft_strjoin("+", strprecis);
+		else
+			finalstr = ft_strjoin(" ", strprecis);
+	}
+	else if (fmt->point == 0 || fmt->precision <= ft_strlen(str))
+	{
+		if (fmt->plus != 0)
+			finalstr = ft_strjoin("+", str);
+		else
+			finalstr = ft_strjoin(" ", str);
+	}
+	free(str);
+	return (finalstr);
 }
 
 static int	ft_suprawidth(t_format *fmt, char *str)
@@ -57,6 +79,7 @@ int	ft_print_nbr_bonus(int n, t_format *fmt)
 
 	str = NULL;
 	printed = 0;
+
 	if ((fmt->plus != 0 || fmt->space != 0) && n > 0)
 		str = ft_positnum(ft_itoa(n), fmt);
 	else
