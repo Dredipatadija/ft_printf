@@ -6,7 +6,7 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:59:20 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/27 15:04:35 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/04/27 20:14:57 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,7 @@ int	ft_print_str_bonus(char *str, t_format *fmt)
 	if (fmt->point == 1 && (fmt->precision < ft_strlen(str)))
 	{
 		strprecis = (char *)malloc(sizeof(char) * fmt->precision + 1);
-		i = ft_strlcpy(strprecis, str, fmt->precision);
-		if ((int)fmt->precision != i)
-		{
-			free(strprecis);
-			return (-1);
-		}
+		i = ft_strlcpy(strprecis, str, fmt->precision + 1);
 		printed = ft_width_str(fmt, strprecis, printed);
 		free(strprecis);
 	}

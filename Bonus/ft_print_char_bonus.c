@@ -6,7 +6,7 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 13:42:41 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/27 13:31:47 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/04/27 20:06:49 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	ft_leftaligned_char(t_format *fmt, char c)
 		i = ft_putchar(c);
 		if (i == -1)
 			return (-1);
-		while (j < ((int)fmt->width - 1))
+		while (space < ((int)fmt->width - 1))
 		{
 			j = ft_putchar(' ');
 			if (j == -1)
@@ -41,7 +41,7 @@ static int	ft_leftaligned_char(t_format *fmt, char c)
 	}
 	else
 	{
-		while (j < ((int)fmt->width - 1))
+		while (space < ((int)fmt->width - 1))
 		{
 			j = ft_putchar(' ');
 			if (j == -1)

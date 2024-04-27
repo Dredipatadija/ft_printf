@@ -6,7 +6,7 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 15:25:56 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/27 15:07:37 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/04/27 17:38:14 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static char	*ft_positnum(char *str, t_format *fmt)
 			finalstr = ft_strjoin("+", strprecis);
 		else
 			finalstr = ft_strjoin(" ", strprecis);
+		free(strprecis);
 	}
 	else if (fmt->point == 0 || fmt->precision <= ft_strlen(str))
 	{

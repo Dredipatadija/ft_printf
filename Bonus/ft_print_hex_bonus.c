@@ -6,7 +6,7 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:40:59 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/27 15:37:15 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/04/27 21:26:11 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static char	*ft_fillhex(unsigned long n, char ch, size_t len, char *str)
 	{
 		if (n > 15)
 		{
-			if (ch == 'x')
+			if (ch == 'x' || ch == 'p')
 				str[len] = "0123456789abcdef"[n % 16];
 			if (ch == 'X')
 				str[len] = "0123456789ABCDEF"[n % 16];
@@ -44,7 +44,7 @@ static char	*ft_fillhex(unsigned long n, char ch, size_t len, char *str)
 		}
 		else
 		{
-			if (ch == 'x')
+			if (ch == 'x' || ch == 'p')
 				str[len] = "0123456789abcdef"[n % 16];
 			if (ch == 'X')
 				str[len] = "0123456789ABCDEF"[n % 16];
@@ -69,11 +69,11 @@ static char	*ft_itohex(int len, unsigned long n, char ch, t_format *fmt)
 	else
 	{
 		str = ft_fillhex(n, ch, len, str);
-		if (fmt->hash == 0)
+		if (fmt->hash == 0 && ch != 'p')
 			return (str);
-		else if (fmt->hash != 0)
+		else if (fmt->hash != 0 || ch == 'p')
 		{
-			if (ch == 'x')
+			if (ch == 'x' || ch == 'p')
 				strfin = ft_strjoin("0x", str);
 			else if (ch == 'X')
 				strfin = ft_strjoin("0X", str);
@@ -86,8 +86,8 @@ static char	*ft_itohex(int len, unsigned long n, char ch, t_format *fmt)
 int	ft_print_hex_bonus(unsigned long n, char ch, t_format *fmt)
 {
 	char	*str;
-	int		printedflag;
-	int		printedstr;
+	long long		printedflag;
+	long long		printedstr;
 	char	*strprecis;
 	char	*finalstr;
 
@@ -95,6 +95,15 @@ int	ft_print_hex_bonus(unsigned long n, char ch, t_format *fmt)
 	printedstr = 0;
 	strprecis = NULL;
 	finalstr = NULL;
+	if (ch == 'p')
+	{
+		fmt->hash = 0;
+		fmt->plus = 0;
+		fmt->space = 0;
+		fmt->point = 0;
+		fmt->precision = 0;
+		fmt->zerofilled = 0;
+	}
 	str = ft_itohex(ft_hexlen(n), n, ch, fmt);
 	if (fmt->point == 1 && fmt->precision > ft_strlen(str))
 	{
@@ -110,10 +119,24 @@ int	ft_print_hex_bonus(unsigned long n, char ch, t_format *fmt)
 	}
 	if (fmt->width <= ft_strlen(finalstr))
 		printedstr = ft_putstr(finalstr);
-	else if (fmt->width > ft_strlen(finalstr))
+	if (fmt->width > ft_strlen(finalstr))
 	{
-		printedflag = ft_padwidth_bonus(' ', (fmt->width - ft_strlen(finalstr)));
-		printedstr = ft_putstr(finalstr);
+		if (fmt->leftaligned == 1)
+		{
+			printedstr = ft_putstr(finalstr);
+			if (fmt->zerofilled == 0)
+				printedflag = ft_padwidth_bonus(' ', (fmt->width - ft_strlen(finalstr)));
+			else
+				printedflag = ft_padwidth_bonus('0', (fmt->width - ft_strlen(finalstr)));
+		}
+		else if (fmt->zerofilled == 0)
+		{
+			if (fmt->zerofilled == 0)
+				printedflag = ft_padwidth_bonus(' ', (fmt->width - ft_strlen(finalstr)));
+			else
+				printedflag = ft_padwidth_bonus('0', (fmt->width - ft_strlen(finalstr)));
+			printedstr = ft_putstr(finalstr);
+		}
 		if (printedflag == -1 || printedstr == -1)
 			return (ft_errorstr(finalstr));
 	}

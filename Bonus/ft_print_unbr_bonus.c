@@ -6,7 +6,7 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:00:33 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/27 15:29:49 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/04/27 19:06:00 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static char	*ft_uitoa(size_t len, unsigned int n, t_format *fmt)
 	strprecis = NULL;
 	finallen = 0;
 	if (fmt->point == 1 && fmt->precision > len)
-		finallen = fmt->precision;
+		finallen = fmt->precision - 1;
 	else
 		finallen = len;
 	str = malloc(sizeof(char) * finallen + 1);
@@ -78,6 +78,8 @@ static char	*ft_uitoa(size_t len, unsigned int n, t_format *fmt)
 	{
 		strprecis = ft_padprecis_bonus('0', finallen - len);
 		finalstr = ft_strjoin(strprecis, str);
+		free(strprecis);
+		free(str);
 	}
 	return (finalstr);
 }
