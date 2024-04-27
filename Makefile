@@ -6,7 +6,7 @@
 #    By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/20 19:52:09 by arenilla          #+#    #+#              #
-#    Updated: 2024/04/21 20:09:12 by arenilla         ###   ########.fr        #
+#    Updated: 2024/04/27 15:10:08 by arenilla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRC_FILES = ft_printf.c ft_putchar.c ft_putstr.c ft_putnbr.c ft_puthex.c\
 SRCB_FILES = ft_printf_bonus.c ft_print_unbr_bonus.c ft_print_str_bonus.c\
 			 ft_print_ptr_bonus.c ft_print_char_bonus.c ft_print_hex_bonus.c\
 			 ft_print_nbr_bonus.c ft_padwidth_bonus.c ft_errorstr_bonus.c\
-			 ft_check_bonus.c
+			 ft_check_bonus.c ft_padprecis_bonus.c ft_precision.c
 
 SOURCES = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 

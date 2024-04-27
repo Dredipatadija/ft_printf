@@ -6,7 +6,7 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 21:09:54 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/23 19:45:43 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/04/27 15:12:10 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 typedef struct s_format
 {
 	size_t	width;
+	size_t	precision;
+	int		point;
 	int		zerofilled;
 	int		leftaligned;
 	int		hash;
@@ -39,4 +41,6 @@ int	ft_print_str_bonus(char *str, t_format *fmt);
 int	ft_print_unbr_bonus(unsigned int n, t_format *fmt);
 int	ft_printf_bonus(const char *format, ...);
 int	ft_padwidth_bonus(char p, int len);
+const char	*ft_precision(t_format *fmt, const char *format);
+char	*ft_padprecis_bonus(char p, int len);
 #endif
