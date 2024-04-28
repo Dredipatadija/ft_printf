@@ -6,7 +6,7 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:00:33 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/27 19:06:00 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/04/28 13:44:30 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,19 @@ static char	*ft_fillstr(unsigned int n, size_t len, char *str)
 static char	*ft_uitoa(size_t len, unsigned int n, t_format *fmt)
 {
 	char	*str;
-	size_t	finallen;
 	char	*finalstr;
 	char	*strprecis;
+	size_t	i;
 
 	finalstr = NULL;
 	strprecis = NULL;
-	finallen = 0;
+	i = len;
+	if (fmt->point == 1)
+		fmt->zerofilled = 0;
 	if (fmt->point == 1 && fmt->precision > len)
-		finallen = fmt->precision - 1;
+		str = malloc(sizeof(char) * fmt->precision);
 	else
-		finallen = len;
-	str = malloc(sizeof(char) * finallen + 1);
+		str = malloc(sizeof(char) * len + 1);
 	if (!str)
 		return (NULL);
 	str[len--] = 0;
@@ -72,11 +73,11 @@ static char	*ft_uitoa(size_t len, unsigned int n, t_format *fmt)
 		return (str);
 	}
 	str = ft_fillstr(n, len, str);
-	if (finallen <= len)
+	if (fmt->precision <= i)
 		return (str);
 	else
 	{
-		strprecis = ft_padprecis_bonus('0', finallen - len);
+		strprecis = ft_padprecis_bonus('0', fmt->precision - i);
 		finalstr = ft_strjoin(strprecis, str);
 		free(strprecis);
 		free(str);
@@ -87,26 +88,37 @@ static char	*ft_uitoa(size_t len, unsigned int n, t_format *fmt)
 int	ft_print_unbr_bonus(unsigned int n, t_format *fmt)
 {
 	char	*str;
-	int		printedflag;
+	int		pflag;
 	int		printedstr;
 
-	printedflag = 0;
+	pflag = 0;
 	printedstr = 0;
 	str = ft_uitoa(ft_numlen(n), n, fmt);
 	if (fmt->width <= ft_strlen(str))
 		printedstr = ft_putstr(str);
 	else if (fmt->width > ft_strlen(str))
 	{
-		if (fmt->zerofilled != 0)
-			printedflag = ft_padwidth_bonus('0', (fmt->width - ft_strlen(str)));
+		if (fmt->leftaligned == 1)
+		{
+			printedstr = ft_putstr(str);
+			if (fmt->zerofilled != 0)
+				pflag = ft_padwidth_bonus('0', (fmt->width - ft_strlen(str)));
+			else
+				pflag = ft_padwidth_bonus(' ', (fmt->width - ft_strlen(str)));
+		}
 		else
-			printedflag = ft_padwidth_bonus(' ', (fmt->width - ft_strlen(str)));
-		if (printedflag == -1)
+		{
+			if (fmt->zerofilled != 0)
+				pflag = ft_padwidth_bonus('0', (fmt->width - ft_strlen(str)));
+			else
+				pflag = ft_padwidth_bonus(' ', (fmt->width - ft_strlen(str)));
+			printedstr = ft_putstr(str);
+		}
+		if (pflag == -1)
 			return (ft_errorstr(str));
-		printedstr = ft_putstr(str);
 		if (printedstr == -1)
 			return (ft_errorstr(str));
 	}
 	free(str);
-	return (printedstr + printedflag);
+	return (printedstr + pflag);
 }

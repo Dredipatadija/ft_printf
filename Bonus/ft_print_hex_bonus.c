@@ -6,7 +6,7 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 16:40:59 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/27 21:26:11 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/04/28 16:10:12 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,61 +85,28 @@ static char	*ft_itohex(int len, unsigned long n, char ch, t_format *fmt)
 
 int	ft_print_hex_bonus(unsigned long n, char ch, t_format *fmt)
 {
-	char	*str;
-	long long		printedflag;
-	long long		printedstr;
-	char	*strprecis;
-	char	*finalstr;
+	char		*str;
+	long long	printed;
+	long long	printedstr;
+	char		*s;
 
-	printedflag = 0;
+	printed = 0;
 	printedstr = 0;
-	strprecis = NULL;
-	finalstr = NULL;
+	s = NULL;
 	if (ch == 'p')
-	{
-		fmt->hash = 0;
-		fmt->plus = 0;
-		fmt->space = 0;
-		fmt->point = 0;
-		fmt->precision = 0;
-		fmt->zerofilled = 0;
-	}
+		ft_pointernegate(fmt);
 	str = ft_itohex(ft_hexlen(n), n, ch, fmt);
-	if (fmt->point == 1 && fmt->precision > ft_strlen(str))
+	if (fmt->point == 1)
+		fmt->zerofilled = 0;
+	s = ft_conditionprecis(fmt, str);
+	if (fmt->width <= ft_strlen(s))
 	{
-		strprecis = ft_padprecis_bonus('0', (fmt->precision - ft_strlen(str)));
-		finalstr = ft_strjoin(strprecis, str);
-		free(strprecis);
-		free(str);
+		printedstr = ft_putstr(s);
+		free(s);
+		return (printedstr);
 	}
-	else
-	{
-		finalstr = ft_strdup(str);
-		free(str);
-	}
-	if (fmt->width <= ft_strlen(finalstr))
-		printedstr = ft_putstr(finalstr);
-	if (fmt->width > ft_strlen(finalstr))
-	{
-		if (fmt->leftaligned == 1)
-		{
-			printedstr = ft_putstr(finalstr);
-			if (fmt->zerofilled == 0)
-				printedflag = ft_padwidth_bonus(' ', (fmt->width - ft_strlen(finalstr)));
-			else
-				printedflag = ft_padwidth_bonus('0', (fmt->width - ft_strlen(finalstr)));
-		}
-		else if (fmt->zerofilled == 0)
-		{
-			if (fmt->zerofilled == 0)
-				printedflag = ft_padwidth_bonus(' ', (fmt->width - ft_strlen(finalstr)));
-			else
-				printedflag = ft_padwidth_bonus('0', (fmt->width - ft_strlen(finalstr)));
-			printedstr = ft_putstr(finalstr);
-		}
-		if (printedflag == -1 || printedstr == -1)
-			return (ft_errorstr(finalstr));
-	}
-	free(finalstr);
-	return (printedstr + printedflag);
+	if (fmt->width > ft_strlen(s))
+		printed = ft_widthmajor_h(fmt, printedstr, s);
+	free(s);
+	return (printed);
 }

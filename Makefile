@@ -6,11 +6,13 @@
 #    By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/20 19:52:09 by arenilla          #+#    #+#              #
-#    Updated: 2024/04/27 15:10:08 by arenilla         ###   ########.fr        #
+#    Updated: 2024/04/28 13:29:17 by arenilla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
+
+NAMEB = libftprintf_bonus.a
 
 CC = cc
 
@@ -44,10 +46,12 @@ $(NAME): $(OBJECTS)
 	cp libft/libft.a $(NAME)
 	ar -crs $(NAME) $(OBJECTS)
 
-bonus: $(OBJECTSB)
+bonus: $(NAMEB)
+
+$(NAMEB): $(OBJECTSB)
 	$(MAKE) -C ./libft
-	cp libft/libft.a $(NAME)
-	ar -crs $(NAME) $(OBJECTSB)
+	cp libft/libft.a $(NAMEB)
+	ar -crs $(NAMEB) $(OBJECTSB)
 
 clean:
 	$(MAKE) clean -C ./libft
@@ -55,7 +59,7 @@ clean:
 
 fclean: clean
 	$(MAKE) fclean -C ./libft
-	rm -f $(NAME)
+	rm -f $(NAME) $(NAMEB)
 
 re: fclean all
 

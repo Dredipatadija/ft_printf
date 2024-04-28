@@ -6,7 +6,7 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 15:25:56 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/27 17:38:14 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/04/28 16:08:40 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,37 +20,23 @@ static char	*ft_positnum(char *str, t_format *fmt)
 	char	*padprecis;
 	char	*finalstr;
 
-	finalstr = NULL;
 	padprecis = NULL;
 	strprecis = NULL;
-	if (fmt->point == 1 && fmt->precision > ft_strlen(str))
-	{
-		padprecis = ft_padprecis_bonus('0', (fmt->precision - ft_strlen(str)));
-		strprecis = ft_strjoin(padprecis, str);
-		free(padprecis);
-		if (fmt->plus != 0)
-			finalstr = ft_strjoin("+", strprecis);
-		else
-			finalstr = ft_strjoin(" ", strprecis);
-		free(strprecis);
-	}
-	else if (fmt->point == 0 || fmt->precision <= ft_strlen(str))
-	{
-		if (fmt->plus != 0)
-			finalstr = ft_strjoin("+", str);
-		else
-			finalstr = ft_strjoin(" ", str);
-	}
+	finalstr = ft_pluspa(str, fmt, strprecis, padprecis);
 	free(str);
+	if (padprecis)
+		free(padprecis);
+	if (strprecis)
+		free(strprecis);
 	return (finalstr);
 }
 
 static int	ft_suprawidth(t_format *fmt, char *str)
 {
 	int	printedstr;
-	int	printedflag;
+	int	pflag;
 
-	printedflag = 0;
+	pflag = 0;
 	printedstr = 0;
 	if (fmt->width <= ft_strlen(str))
 	{
@@ -59,33 +45,43 @@ static int	ft_suprawidth(t_format *fmt, char *str)
 			return (-1);
 	}
 	else if (fmt->width > ft_strlen(str))
-	{
-		if (fmt->zerofilled != 0)
-			printedflag = ft_padwidth_bonus('0', (fmt->width - ft_strlen(str)));
-		else
-			printedflag = ft_padwidth_bonus(' ', (fmt->width - ft_strlen(str)));
-		if (printedflag == -1)
-			return (-1);
-		printedstr = ft_putstr(str);
-		if (printedstr == -1)
-			return (-1);
-	}
-	return (printedflag + printedstr);
+		pflag = ft_widthmajor_n(fmt, printedstr, str);
+	return (pflag + printedstr);
 }
 
 int	ft_print_nbr_bonus(int n, t_format *fmt)
 {
 	char	*str;
 	int		printed;
+	char	*padprecis;
+	char	*strprecis;
 
+	strprecis = NULL;
+	padprecis = NULL;
 	str = NULL;
 	printed = 0;
-
 	if ((fmt->plus != 0 || fmt->space != 0) && n > 0)
 		str = ft_positnum(ft_itoa(n), fmt);
+	else if (n < 0)
+	{
+		str = ft_itoa(-n);
+		printed = ft_putchar('-');
+		fmt->width = fmt->width - 1;
+	}
 	else
 		str = ft_itoa(n);
-	printed = ft_suprawidth(fmt, str);
+	if (fmt->point == 1 && fmt->precision > ft_strlen(str))
+	{
+		fmt->zerofilled = 0;
+		padprecis = ft_padprecis_bonus('0', (fmt->precision - ft_strlen(str)));
+		strprecis = ft_strjoin(padprecis, str);
+		printed = printed + ft_suprawidth(fmt, strprecis);
+		free(str);
+		free(padprecis);
+		free(strprecis);
+		return (printed);
+	}
+	printed = printed + ft_suprawidth(fmt, str);
 	free(str);
 	return (printed);
 }
