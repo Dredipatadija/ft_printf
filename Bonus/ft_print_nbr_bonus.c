@@ -6,7 +6,7 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 15:25:56 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/28 16:08:40 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/04/28 19:38:22 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../include/libft.h"
 #include "../include/ft_printf.h"
 
-static char	*ft_positnum(char *str, t_format *fmt)
+char	*ft_positnum(char *str, t_format *fmt)
 {
 	char	*strprecis;
 	char	*padprecis;
@@ -31,7 +31,7 @@ static char	*ft_positnum(char *str, t_format *fmt)
 	return (finalstr);
 }
 
-static int	ft_suprawidth(t_format *fmt, char *str)
+int	ft_suprawidth(t_format *fmt, char *str)
 {
 	int	printedstr;
 	int	pflag;
@@ -49,6 +49,24 @@ static int	ft_suprawidth(t_format *fmt, char *str)
 	return (pflag + printedstr);
 }
 
+static char	*ft_prepare_str(int n, t_format *fmt, int *printed)
+{
+	char	*str;
+
+	str = NULL;
+	if ((fmt->plus != 0 || fmt->space != 0) && n > 0)
+		str = ft_positnum(ft_itoa(n), fmt);
+	else if (n < 0)
+	{
+		str = ft_itoa(-n);
+		*printed = ft_putchar('-');
+		fmt->width = fmt->width - 1;
+	}
+	else
+		str = ft_itoa(n);
+	return (str);
+}
+
 int	ft_print_nbr_bonus(int n, t_format *fmt)
 {
 	char	*str;
@@ -58,18 +76,8 @@ int	ft_print_nbr_bonus(int n, t_format *fmt)
 
 	strprecis = NULL;
 	padprecis = NULL;
-	str = NULL;
 	printed = 0;
-	if ((fmt->plus != 0 || fmt->space != 0) && n > 0)
-		str = ft_positnum(ft_itoa(n), fmt);
-	else if (n < 0)
-	{
-		str = ft_itoa(-n);
-		printed = ft_putchar('-');
-		fmt->width = fmt->width - 1;
-	}
-	else
-		str = ft_itoa(n);
+	str = ft_prepare_str(n, fmt, &printed);
 	if (fmt->point == 1 && fmt->precision > ft_strlen(str))
 	{
 		fmt->zerofilled = 0;

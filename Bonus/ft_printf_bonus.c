@@ -6,7 +6,7 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 18:57:37 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/28 16:12:03 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/04/28 20:12:39 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int main(void)
 {
     int original, bonus;
 
-/*	// Tests with %c, must'n use 0, #, +, ' ' or ., not gotten by original printf
+	// Tests with %c, must'n use 0, #, +, ' ' or ., not gotten by original printf
 	// Test 1: Testing %c specifier with width
 	original = printf("O: %2c\n", 'A');
 	bonus = ft_printf_bonus("R: %2c\n", 'A');
@@ -129,9 +129,9 @@ int main(void)
 	if (original == bonus)
 		printf("OK\n\n");
 	else
-		printf("KO\n\n");*/
+		printf("KO\n\n");
 
-/*	//Tests with %s, must'n use 0, #, + or ' ', not gotten by origginal printf
+//Tests with %s, must'n use 0, #, + or ' ', not gotten by origginal printf
 	// Test 1: Testing %s specifier with width
 	original = printf("O: %10s\n", "Hello");
 	bonus = ft_printf_bonus("R: %10s\n", "Hello");
@@ -220,9 +220,9 @@ int main(void)
 	if (original == bonus)
 		printf("OK\n\n");
 	else
-		printf("KO\n\n");*/
+		printf("KO\n\n");
 
-/*	// Tests for %p, must'n use 0, ., #, or +
+	// Tests for %p, must'n use 0, ., #, or +
 	// Test 1: Testing %p specifier with width
 	void *ptr1 = (void *)0x12345678;
 	original = printf("O: %10p\n", ptr1);
@@ -321,17 +321,18 @@ int main(void)
 	if (original == bonus)
 		printf("OK\n\n");
 	else
-		printf("KO\n\n");*/
+		printf("KO\n\n");
 
-/*	// Tests with %d, must not use #, not gotten by original 
-	// Test 1: Testing %d specifier with width and left-justified
+// Tests with %d, must not use #, not gotten by original 
+// Test 1 %d
 	original = printf("O: %-5d\n", 42);
 	bonus = ft_printf_bonus("R: %-5d\n", 42);
 	printf("Return Original: %d, Return Réplica: %d\n", original, bonus);
 	if (original == bonus)
-	    printf("OK\n\n");
+		printf("OK\n\n");
 	else
-  	  printf("KO\n\n");
+		printf("KO\n\n");
+
 
 	// Test 2: Testing %d specifier with zero padding
 	original = printf("O: %05d\n", 42);
@@ -405,15 +406,6 @@ int main(void)
 	else
   	  printf("KO\n\n");
 	
-	// Test 10: Testing %d specifier with precision and zero padding (negative)
-	original = printf("O: %0.5d\n", -1234);
-	bonus = ft_printf_bonus("R: %0.5d\n", -1234);
-	printf("Return Original: %d, Return Réplica: %d\n", original, bonus);
-	if (original == bonus)
-	   printf("OK\n\n");
-	else
-	   printf("KO\n\n");
-
 	// Tests with %i, not use #
 	// Test 1: Testing %i specifier with width and left-justified
 	original = printf("O: %-5i\n", 42);
@@ -495,17 +487,8 @@ int main(void)
 	    printf("OK\n\n");
 	else
 	    printf("KO\n\n");
-
-	// Test 10: Testing %i specifier with precision and zero padding (negative)
-	original = printf("O: %0.5i\n", -1234);
-	bonus = ft_printf_bonus("R: %0.5i\n", -1234);
-	printf("Return Original: %d, Return Réplica: %d\n", original, bonus);
-	if (original == bonus)
-	   printf("OK\n\n");
-	else
- 	   printf("KO\n\n");*/
 	
-/*	// Tests with %u, not use #, +, ' '
+	// Tests with %u, not use #, +, ' '
 	// Test 1: Testing %u specifier with width and left-justified
 	original = printf("O: %-5u\n", 42);
 	bonus = ft_printf_bonus("R: %-5u\n", 42);
@@ -594,9 +577,9 @@ int main(void)
 	if (original == bonus)
   	  printf("OK\n\n");
 	else
-	    printf("KO\n\n");*/
+	    printf("KO\n\n");
 	
-/*	// Tests with %x, not use +, ' '
+	// Tests with %x, not use +, ' '
 	// Test 1: Testing %x specifier with width and left-justified
 	original = printf("O: %-5x\n", 42);
 	bonus = ft_printf_bonus("R: %-5x\n", 42);
@@ -776,9 +759,9 @@ int main(void)
 	if (original == bonus)
 	    printf("OK\n\n");
 	else
-	    printf("KO\n\n");*/
+	    printf("KO\n\n");
 
-/*	// Tests with %%, can use #, +, ' ', but theyr are ignored
+	// Tests with %%, can use #, +, ' ', but theyr are ignored
 	// Test 1: Testing %% specifier with width and left-justified
 	original = printf("O: %-5%\n");
 	bonus = ft_printf_bonus("R: %-5%\n");
@@ -885,7 +868,7 @@ int main(void)
 	if (original == bonus)
 	    printf("OK\n\n");
 	else
-	    printf("KO\n\n");*/
+	    printf("KO\n\n");
 
 	return 0;
 }

@@ -6,7 +6,7 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:00:33 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/28 13:44:30 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/04/28 20:22:59 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static size_t	ft_numlen(unsigned long n)
 	return (len);
 }
 
-static char	*ft_fillstr(unsigned int n, size_t len, char *str)
+char	*ft_fillstr(unsigned int n, size_t len, char *str)
 {
 	while (n > 0)
 	{
@@ -48,18 +48,10 @@ static char	*ft_fillstr(unsigned int n, size_t len, char *str)
 	return (str);
 }
 
-static char	*ft_uitoa(size_t len, unsigned int n, t_format *fmt)
+static char	*ft_prepare_str(size_t len, unsigned int n, t_format *fmt)
 {
 	char	*str;
-	char	*finalstr;
-	char	*strprecis;
-	size_t	i;
 
-	finalstr = NULL;
-	strprecis = NULL;
-	i = len;
-	if (fmt->point == 1)
-		fmt->zerofilled = 0;
 	if (fmt->point == 1 && fmt->precision > len)
 		str = malloc(sizeof(char) * fmt->precision);
 	else
@@ -73,6 +65,22 @@ static char	*ft_uitoa(size_t len, unsigned int n, t_format *fmt)
 		return (str);
 	}
 	str = ft_fillstr(n, len, str);
+	return (str);
+}
+
+char	*ft_uitoa(size_t len, unsigned int n, t_format *fmt)
+{
+	char	*str;
+	char	*finalstr;
+	char	*strprecis;
+	size_t	i;
+
+	finalstr = NULL;
+	strprecis = NULL;
+	i = len;
+	if (fmt->point == 1)
+		fmt->zerofilled = 0;
+	str = ft_prepare_str(len, n, fmt);
 	if (fmt->precision <= i)
 		return (str);
 	else

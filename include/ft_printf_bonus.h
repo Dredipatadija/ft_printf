@@ -6,7 +6,7 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 21:09:54 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/28 16:14:59 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/04/28 19:25:41 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,12 @@ void		ft_pointernegate(t_format *fmt);
 char		*ft_conditionprecis(t_format *fmt, char *str);
 char		*ft_pluspa(char *str, t_format *fmt,
 				char *strprecis, char *padprecis);
+char		*ft_unbrconditions(size_t l, char *str,
+				unsigned int n, t_format *fmt);
+int			ft_unbrlefta(t_format *fmt, int printedstr, char *str, int pflag);
+int			ft_suprawidth(t_format *fmt, char *str);
+char		*ft_fillstr(unsigned int n, size_t len, char *str);
+char		*ft_uitoa(size_t len, unsigned int n, t_format *fmt);
+char		*ft_positnum(char *str, t_format *fmt);
+
 #endif
