@@ -6,7 +6,7 @@
 /*   By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:46:31 by arenilla          #+#    #+#             */
-/*   Updated: 2024/04/21 19:33:49 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/05/07 18:08:06 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	ft_printf(const char *format, ...)
 	{
 		while (format[i] != '\0')
 		{
-			if (format[i] == '%' && format[++i] != '\0')
-				count = ft_check(format[i], args);
+			if (format[i] == '%' && format[i + 1] != '\0')
+				count = ft_check(format[++i], args);
 			else if (format[i] != '%')
 				count = ft_putchar(format[i]);
 			if (count == -1)
