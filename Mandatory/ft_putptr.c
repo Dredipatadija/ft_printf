@@ -19,6 +19,8 @@ int	ft_putptr(void *ptr)
 	int				i;
 	int				j;
 
+	if (ptr == NULL)
+		return (write(1, "(null)", 6));
 	p = (unsigned long)ptr;
 	i = write(1, "0x", 2);
 	if (i == -1)
