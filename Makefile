@@ -6,7 +6,7 @@
 #    By: arenilla <arenilla@student.42madrid>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/20 19:52:09 by arenilla          #+#    #+#              #
-#    Updated: 2024/05/06 16:34:54 by arenilla         ###   ########.fr        #
+#    Updated: 2024/05/22 10:33:27 by arenilla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,12 +16,8 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
 
-SRC_DIR = Sources
-
-SRC_FILES = ft_printf.c ft_putchar.c ft_putstr.c ft_putnbr.c ft_puthex.c\
+SOURCES = ft_printf.c ft_putchar.c ft_putstr.c ft_putnbr.c ft_puthex.c\
 			ft_putptr.c ft_check.c ft_putunbr.c
-
-SOURCES = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
 OBJECTS = $(SOURCES:.c=.o)
 
